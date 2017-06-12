@@ -439,20 +439,29 @@ class UserOrgAffiliation(BaseModel):
         table_alias = "oua"
 
 
+class ApiToken(BaseModel):
+    """API tokens."""
+    org = ForeignKeyField(Organisation, on_delete="CASCADE")
+    user = ForeignKeyField(User, on_delete="CASCADE")
+    token = TextField(unique=True, null=True)
+
+    class Meta:
+        db_table = "api_token"
+
 def create_tables():
     """Create all DB tables."""
     try:
         db.connect()
     except OperationalError:
         pass
-    models = (Organisation, User, UserOrg, OrcidToken, UserOrgAffiliation, OrgInfo)
+    models = (Organisation, User, UserOrg, OrcidToken, UserOrgAffiliation, OrgInfo, ApiToken)
     db.create_tables(models)
 
 
 def drop_tables():
     """Drop all model tables."""
 
-    for m in (Organisation, User, UserOrg, OrcidToken, UserOrgAffiliation, OrgInfo):
+    for m in (Organisation, User, UserOrg, OrcidToken, UserOrgAffiliation, OrgInfo, ApiToken):
         if m.table_exists():
             try:
                 m.drop_table(fail_silently=True, cascade=db.drop_cascade)
