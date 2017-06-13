@@ -5,7 +5,6 @@ Collection of applicion views involved in organisation on-boarding and
 user (reseaser) affiliations.
 """
 
-
 import base64
 import pickle
 import secrets
