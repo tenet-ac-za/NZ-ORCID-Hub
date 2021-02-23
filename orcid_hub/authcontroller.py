@@ -1577,3 +1577,12 @@ def select_user_org(user_org_id):
     except UserOrg.DoesNotExist:
         flash("Your are not related to this organisation.", "danger")
     return redirect(_next)
+
+@app.route("/privacy.html")
+@app.route("/privacy")
+def privacy():
+    """Show privacy page with login buttons."""
+    if request.args:
+        abort(403)
+    return render_template("privacy.html")
+
