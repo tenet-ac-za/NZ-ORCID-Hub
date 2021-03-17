@@ -12,7 +12,7 @@ ORCID_API_BASE = ORCID_API_HOST_URL + ORCID_API_VERSION + '/'
 ORCID_BASE_URL = "https://sandbox.orcid.org/" if ENV != "prod" else "https://orcid.org/"
 
 # NB! Set up the key. See: http://flask.pocoo.org/docs/latest/quickstart/#sessions
-SECRET_KEY = getenv("SECRET_KEY", b'\xe3\x94a\x14-sT`\x92\x8a0\x16\r\xe1zb')
+SECRET_KEY = getenv("SECRET_KEY", b'\xf4\xf7\x03D\xd5\xe9i\xf8\x190\xef\x81\x05\xdcI\x01r\x8f\x10\xe1\xbfU93')
 SENTRY_DSN = getenv("SENTRY_DSN")
 
 # TODO: Soon to be depricated:
@@ -52,41 +52,46 @@ OAUTH2_PROVIDER_TOKEN_EXPIRES_IN = 86400  # Default Bearer token expires time, d
 # add mail server config
 MAIL_PORT = int(getenv("MAIL_PORT", 25))
 MAIL_SUPPRESS_SEND = False
-MAIL_DEFAULT_SENDER = getenv("MAIL_DEFAULT_SENDER", "no-reply@orcidhub.org.nz")
-MAIL_SERVER = getenv("MAIL_SERVER", "gateway")
-MAIL_DKIM_DOMAIN = getenv("MAIL_DKIM_DOMAIN", "orcidhub.org.nz")
-MAIL_DKIM_SELECTOR = getenv("MAIL_DKIM_SELECTOR", "default")
+MAIL_DEFAULT_SENDER = getenv("MAIL_DEFAULT_SENDER", "no-reply@intembeko.orcid.ac.za")
+MAIL_SERVER = getenv("MAIL_SERVER", "monitor.tenet.ac.za")
+MAIL_DKIM_DOMAIN = getenv("MAIL_DKIM_DOMAIN", "orcid.ac.za")
+MAIL_DKIM_SELECTOR = getenv("MAIL_DKIM_SELECTOR", "intembeko2021")
 
 MEMBER_API_FORM_BASE_URL = "https://orcid.org/content/register-client-application-sandbox" \
     if ENV != "prod" else "https://orcid.org/content/register-client-application-production-trusted-party"
 
-NOTE_ORCID = 'An NZ ORCID Hub integration for'
+NOTE_ORCID = 'An Intembeko ORCID Hub integration for'
 CRED_TYPE_PREMIUM = 2
-APP_NAME = 'NZ ORCID HUB'
-APP_DESCRIPTION = 'This is an ORCID integration through the NZ ORCID HUB connecting'
-APP_URL = "https://" + (ENV + ".orcidhub.org.nz" if ENV != "prod" else "orcidhub.org.nz")
-SEED_HUB_ADMIN = getenv("SEED_HUB_ADMIN", "rad42@mailinator.com")
+APP_NAME = 'Intembeko ORCID HUB'
+APP_DESCRIPTION = 'This is an ORCID integration through the Intembeko ORCID HUB connecting'
+APP_URL = "https://" + (ENV + ".intembeko.orcid.ac.za" if ENV != "prod" else "intembeko.orcid.ac.za")
+SEED_HUB_ADMIN = getenv("SEED_HUB_ADMIN", "orcid@tenet.ac.za")
 
-# External Shibboleth SP login URL (e.g., https://test.orcidhub.org.nz/Tuakiri/login)
+# External Shibboleth SP login URL (e.g., https://intembeko.orcid.ac.za/saml/login)
 EXTERNAL_SP = getenv("EXTERNAL_SP") if ENV != "prod" else None
+# Attribute map for external SP
+EXTERNAL_SP_ATTR_EPPN = getenv("EXTERNAL_SP_ATTR_EPPN", "eppn")
+EXTERNAL_SP_ATTR_SN = getenv("EXTERNAL_SP_ATTR_SN", "sn")
+EXTERNAL_SP_ATTR_GIVENNAME = getenv("EXTERNAL_SP_ATTR_GIVENNAME", "givenName")
+EXTERNAL_SP_ATTR_MAIL = getenv("EXTERNAL_SP_ATTR_MAIL", "mail")
+EXTERNAL_SP_ATTR_DISPLAYNAME = getenv("EXTERNAL_SP_ATTR_DISPLAYNAME", "displayName")
+EXTERNAL_SP_ATTR_ORG = getenv("EXTERNAL_SP_ATTR_ORG", "schacHomeOrganization")
+EXTERNAL_SP_ATTR_AFFILIATION = getenv("EXTERNAL_SP_ATTR_AFFILIATION", "unscoped-affiliation")
+EXTERNAL_SP_ATTR_ORCID = getenv("EXTERNAL_SP_ATTR_ORCID", "eduPersonOrcid")
 
-DEFAULT_COUNTRY = "NZ"
+DEFAULT_COUNTRY = "ZA"
 
 if ENV == "dev":
-    GA_TRACKING_ID = "UA-99022483-1"
-elif ENV == "test":
-    GA_TRACKING_ID = "UA-99022483-2"
-elif ENV == "dev0":
-    GA_TRACKING_ID = "UA-99022483-3"
+    GA_TRACKING_ID = "265937145"
 else:
-    GA_TRACKING_ID = "UA-99022483-4"
+    GA_TRACKING_ID = "265977402"
 
 DEFAULT_EMAIL_TEMPLATE = """<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <title>{SUBJECT}</title>
-    <meta name="keywords" content="ORCID HUB,New Zealand,NZ,orcid"/>
+    <meta name="keywords" content="ORCID HUB,Intembeko,ZA,orcid"/>
   </head>
   <body>
     <div style="font-family: Arial, Verdana, Georgia, and Times New Roman; background-color: white; color: black;">
@@ -94,16 +99,16 @@ DEFAULT_EMAIL_TEMPLATE = """<!DOCTYPE html>
         <tr>
           <td>&nbsp;</td>
           <td align="right">
-            <img src="{LOGO}" title="NZ ORCID Hub" alt="NZ ORCID Hub" style="display:block;" />
+            <img src="{LOGO}" title="Intembeko ORCID Hub" alt="Intembeko ORCID Hub" style="display:block;" />
           </td>
         </tr>
       </table>
       {MESSAGE}
       <p>If you received this email in error, or you have questions about the responsibilities
-      involved, please contact: <a href="mailto:orcid@royalsociety.org.nz">
-      orcid@royalsociety.org.nz</a></p>
+      involved, please contact: <a href="mailto:orcid@tenet.ac.za">
+      orcid@tenet.ac.za</a></p>
       <p>For information about ORCID go to the
-      <a href="https://royalsociety.org.nz/orcid-in-new-zealand/what-is-orcid/orcid-for-researchers/">What is ORCID?</a>
+      <a href="https://www.tenet.ac.za/services/orcid/">What is ORCID?</a>
        page of our website.</p>
       <hr>
       <p>This email was sent to <a href="mailto:{EMAIL}">{EMAIL}</a></p>
@@ -112,11 +117,10 @@ DEFAULT_EMAIL_TEMPLATE = """<!DOCTYPE html>
         <tr>
           <td>
             <p style="vertical-align: top; padding-left: 15px;">
-            Contact details for the NZ ORCID Hub<br>
-            Phone: (04) 472 7421<br>
-            PO Box 598, Wellington 6140<br>
+            Contact details for the Intembeko ORCID Hub<br>
+            Phone: +27.21.763.7147<br>
             <b><a style="text-decoration: none; color: white;"
-                  href="mailto:orcid@royalsociety.org.nz">orcid@royalsociety.org.nz</a></b>
+                  href="mailto:orcid@tenet.ac.za">orcid@tenet.ac.za</a></b>
             </p>
           </td>
           <td style="vertical-align: top;">
